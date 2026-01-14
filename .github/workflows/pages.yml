@@ -1,9 +1,11 @@
+
 name: Deploy GitHub Pages
 
 on:
   push:
     branches:
       - jobsupport
+      - main
 
 permissions:
   contents: read
@@ -17,13 +19,20 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Setup Node.js 20
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
+          cache: npm
+
+      - name: Verify Node version
+        run: node -v
 
       - name: Install dependencies
         run: npm install
+
+      - name: export variable
+        run: echo GOOGLE_APPS_SCRIPT_URL="https://script.google.com/macros/s/AKfycbx1234567890/exec" >> $GITHUB_ENV
 
       - name: Build Next.js project
         run: npm run build
