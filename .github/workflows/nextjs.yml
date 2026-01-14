@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - jobsupport
+      - main
 
 permissions:
   contents: read
